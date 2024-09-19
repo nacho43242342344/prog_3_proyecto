@@ -1,16 +1,46 @@
 import './SearchForm.css';
+import { Component } from 'react';
 
-const SearchForm = () => {
+class SearchForm extends Component {
+    constructor(props){
+        super(props)
+    
+        this.state = {
+            query:""
+        }
+    }
 
-    return (
-        <form className="search_form">
-            <input 
-                type="text" 
-                placeholder="Buscar..."  
-            />
-            <button type="submit">Buscar</button>
-        </form>
-    );
-};
+    handelFormChange(e) {
+        this.setState({
+         query: e.target.value
+        }) 
+    } 
+
+    handleCancelSubmit(e){
+        console.log(e);
+        e.preventDefault()
+    }
+
+    handelFormSubmit(){
+        this.props.history.push("/search", {query: this.state.query})
+    }
+
+    render(){
+        return(
+            <div>
+                 <form className="search_form" onSubmit={(e) => this.handleCancelSubmit(e)}>
+                    <input 
+                        onChange={(e) => this.handelFormChange(e)}
+                        name='query'
+                        type="text" 
+                        placeholder="Buscar..."  
+                        value={this.state.query}
+                    />
+                    <button onClick={()=>this.handelFormSubmit()}>Buscar</button>
+                </form> 
+            </div>
+        )
+    }
+}
 
 export default SearchForm;

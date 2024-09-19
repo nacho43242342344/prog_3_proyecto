@@ -3,6 +3,7 @@ import { Switch, Route} from "react-router-dom"
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Home from './pages/Home';
+import VerTodas from './pages/Vertodas';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header />
         <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/ver-todas/populares" component={VerTodas} />
         </Switch>
       <Footer />
     </>

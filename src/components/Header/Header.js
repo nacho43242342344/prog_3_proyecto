@@ -1,15 +1,17 @@
 import SearchForm from "../SearchForm/SearchForm";
-import "./Header.css"
-import {Link} from "react-router-dom"
+import "./Header.css";
+import { Link, useHistory } from "react-router-dom";
 
 const Header = () => {
+    const history = useHistory(); 
+
     return (
         <header>
             <div className="logo">
                 <h1>PopcornParadise</h1>
                 <img src="/logo.jpg" alt="Logo de la aplicación" />
             </div>
-            < SearchForm/>
+            <SearchForm history={history} /> 
             <nav>
                 <ul>
                     <li><b><Link to="/">Home</Link></b></li>
@@ -18,7 +20,7 @@ const Header = () => {
                 </ul>
             </nav>
         </header>
-    )
+    );
 }
 
 export default Header;
