@@ -14,19 +14,20 @@ class Home extends Component {
         fetch('https://api.themoviedb.org/3/movie/popular?api_key=b2d79b61dd4647f5264c62498ee335ca')
             .then((response) => response.json())
             .then((data) => this.setState(
-                { populares: data.results }
+                { populares: data.results.slice(0,5) }
             ))
             .catch((err) => console.log(err));
 
         fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=b2d79b61dd4647f5264c62498ee335ca')
             .then((response) => response.json())
             .then((data) => this.setState(
-                { cartel: data.results }
+                { cartel:  data.results.slice(0,5) }
             ))
             .catch((err) => console.log(err));
     }
 
     render() {
+        
         return (
             <div className="home-page">
                 

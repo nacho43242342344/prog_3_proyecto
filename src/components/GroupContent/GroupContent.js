@@ -3,10 +3,11 @@ import ContentItem from '../ContentItem/ContentItem';
 import './GroupContent.css';
 
 const GroupContent = ({ data }) => {
+    console.log(data);
 
     return (
         <div className="content-group">
-            {data.slice(0, 5).map((item) => (
+            {data.map((item) => (
                 <ContentItem key={item.id} data={item} />
             ))}
         </div>
