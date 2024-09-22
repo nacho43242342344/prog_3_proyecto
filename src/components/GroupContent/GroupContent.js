@@ -3,8 +3,6 @@ import ContentItem from '../ContentItem/ContentItem';
 import './GroupContent.css';
 
 const GroupContent = ({ data }) => {
-    console.log(data);
-
     return (
         <div className="content-group">
             {data.map((item) => (

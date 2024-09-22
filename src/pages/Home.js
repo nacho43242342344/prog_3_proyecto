@@ -30,7 +30,9 @@ class Home extends Component {
         
         return (
             <div className="home-page">
-                
+
+                <h1>¡Bienvenido a PopcornParadise!</h1>
+
                 <h2>Películas más populares</h2>
                 <a href="/ver-todas/populares">Ver todas - Populares</a>
                 <GroupContent data={this.state.populares} />

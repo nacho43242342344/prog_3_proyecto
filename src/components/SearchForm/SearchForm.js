@@ -1,46 +1,46 @@
 import './SearchForm.css';
 import { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class SearchForm extends Component {
     constructor(props){
         super(props)
-    
         this.state = {
-            query:""
+            query:"",
         }
     }
 
-    handelFormChange(e) {
+    handleFormChange(e){
         this.setState({
          query: e.target.value
-        }) 
-    } 
+        })
+    }
 
     handleCancelSubmit(e){
-        console.log(e);
         e.preventDefault()
     }
 
-    handelFormSubmit(){
-        this.props.history.push("/search", {query: this.state.query})
+    handleFormSubmit(){        
+        this.props.history.push("/search", { query: this.state.query });
+        this.setState({query: ""});
     }
 
     render(){
-        return(
+        return(            
             <div>
-                 <form className="search_form" onSubmit={(e) => this.handleCancelSubmit(e)}>
+                <form className="search_form" onSubmit={(e) => this.handleCancelSubmit(e)}>
                     <input 
-                        onChange={(e) => this.handelFormChange(e)}
-                        name='query'
+                        onChange={(e) => this.handleFormChange(e)}
+                        name="query"
                         type="text" 
                         placeholder="Buscar..."  
-                        value={this.state.query}
+                        value= {this.state.query}
                     />
-                    <button onClick={()=>this.handelFormSubmit()}>Buscar</button>
-                </form> 
+                </form>
+                <button onClick={() => this.handleFormSubmit()}>Buscar</button> 
             </div>
-        )
+        );
     }
 }
 
-export default SearchForm;
+export default  withRouter(SearchForm);
