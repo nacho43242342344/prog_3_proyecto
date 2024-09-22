@@ -8,12 +8,16 @@ class Cartel extends Component {
             cartel: [], 
             pag: 1,
             filtrar: "",
-            datoFiltrado: []
+            datoFiltrado: [],
+            isLoading: true
         };
     }
 
     componentDidMount() {
         this.fetchCartel();
+        this.setState({
+            isLoading: true
+        })
     }
 
     fetchCartel = () => {
@@ -30,7 +34,8 @@ class Cartel extends Component {
                     datoFiltrado: nuevasCartel.filter(movie =>
                         movie.title.toLowerCase().includes(this.state.filtrar.toLowerCase())
                     ),
-                    pag: this.state.pag + 1
+                    pag: this.state.pag + 1,
+                    isLoading: false
                 });
             })
             .catch((e) => console.log(e));
@@ -62,9 +67,13 @@ class Cartel extends Component {
                     />
                 </form>
 
-                <GroupContent data={datoFiltrado} />
+                {!this.state.isLoading ? (
+                    <>
+                        <GroupContent data={datoFiltrado} />
 
-                <button onClick={this.fetchCartel}>Cargar más</button>
+                        <button onClick={this.fetchCartel}>Cargar más</button>
+                    </>
+                ) : (<p>Loadign</p>)}
             </div>
         );
     }

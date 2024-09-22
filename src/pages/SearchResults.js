@@ -7,6 +7,7 @@ class SearchResults extends Component{
         super(props)
         this.state = {
             movies: [],
+            isLoading: true
         }
     }
     fetchBusquedaPeli(query){
@@ -15,12 +16,16 @@ class SearchResults extends Component{
             .then(data=> {
                 this.setState({
                     movies: data.results,
+                    isLoading: false,
                 })
             }
             ).catch(e => console.log(e));
     }
     componentDidMount(){
         this.fetchBusquedaPeli(this.props.location.state.query)
+        this.setState({
+            isLoading: true
+        })
     }
     componentDidUpdate(resultadosViejos){
         //para ver si al buscar por 2da vez estamos buscando otra cosa y mostrarla, o no.
@@ -32,7 +37,7 @@ class SearchResults extends Component{
         return(
             <div>
                 <h2>Resultados para: {this.props.location.state.query}</h2>
-                <GroupContent data={this.state.movies}/>
+                {!this.state.isLoading ? (<GroupContent data={this.state.movies}/>) : (<p>Loadign</p>)}
             </div>
         )
     }

@@ -8,19 +8,23 @@ class Populares extends Component {
             populares: [],
             pag: 1,
             filtrar: "",
-            datoFiltrado: []
+            datoFiltrado: [],
+            isLoading: true
         };
     }
 
     componentDidMount() {
         this.fetchPopulares();
+        this.setState({
+            isLoading: true
+        })
     }
 
     fetchPopulares = () => {
         const { pag } = this.state;
         const apiKey = 'b2d79b61dd4647f5264c62498ee335ca';
         let url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pag}`; //populares
-    
+
         fetch(url)
             .then((results) => results.json())
             .then((data) => {
@@ -30,7 +34,8 @@ class Populares extends Component {
                     datoFiltrado: nuevasPopulares.filter(movie =>
                         movie.title.toLowerCase().includes(this.state.filtrar.toLowerCase())
                     ),
-                    pag: this.state.pag + 1
+                    pag: this.state.pag + 1,
+                    isLoading: false
                 });
             })
             .catch((e) => console.log(e));
@@ -54,17 +59,20 @@ class Populares extends Component {
                 <h1>Ver todas las películas populares</h1>
 
                 <form>
-                    <input 
-                        type="text" 
-                        placeholder="Buscar película..." 
+                    <input
+                        type="text"
+                        placeholder="Buscar película..."
                         value={this.state.filtrar}
-                        onChange={this.handleFilterChange} 
+                        onChange={this.handleFilterChange}
                     />
                 </form>
+                {!this.state.isLoading ? (
+                    <>
+                        <GroupContent data={datoFiltrado} />
 
-                <GroupContent data={datoFiltrado} />
-
-                <button onClick={this.fetchPopulares}>Cargar más</button>
+                        <button onClick={this.fetchPopulares}>Cargar más</button>
+                    </>
+                ) : (<p>Loadign</p>)}
             </div>
         );
     }
