@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Home from './pages/Home';
-import Populares from './pages/Vertodas';
+import Populares from './pages/VertodasPopulares';
 import Cartel from "./pages/VertodasCartel"
 import Notfound from './pages/Notfound';
 import SearchResults from './pages/SearchResults';
