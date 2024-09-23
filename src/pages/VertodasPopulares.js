@@ -14,6 +14,9 @@ class Populares extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
             fetch(`https://api.themoviedb.org/3/movie/popular?api_key=b2d79b61dd4647f5264c62498ee335ca&page=${this.state.actualPop}`)
                 .then((results) => results.json())
                 .then((data) => {
@@ -25,9 +28,6 @@ class Populares extends Component {
                     });
                 })
                 .catch((e) => console.log(e));
-        this.setState({
-            isLoading: true
-        })
     }
 
     handleFilterChange(event){

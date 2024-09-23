@@ -6,54 +6,62 @@ class Cartel extends Component {
         super(props);
         this.state = {
             cartel: [], 
-            pag: 1,
-            filtrar: "",
+            actualPop: 1,
+            filtrarPeli: "",
             datoFiltrado: [],
             isLoading: true
         };
     }
 
     componentDidMount() {
-        this.fetchCartel();
         this.setState({
             isLoading: true
         })
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=b2d79b61dd4647f5264c62498ee335ca&page=${this.state.actualPop}`)
+                .then((results) => results.json())
+                .then((data) => {
+                    this.setState({
+                        cartel: data.results,
+                        datoFiltrado: data.results,
+                        actualPop: this.state.actualPop + 1,
+                        isLoading: false
+                    });
+                })
+                .catch((e) => console.log(e));
     }
 
-    fetchCartel = () => {
-        const { pag } = this.state;
-        const apiKey = 'b2d79b61dd4647f5264c62498ee335ca';
-        let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=${pag}`; //cartel
-    
-        fetch(url)
+    handleFilterChange(event){
+        const newFilterValue = event.target.value;
+        this.setState({
+            filtrarPeli: newFilterValue,
+            datoFiltrado: this.state.cartel.filter((movie) =>
+                movie.title.toLowerCase().includes(newFilterValue.toLowerCase())
+            )
+        });
+    }
+
+    handleResetFilter(){
+        this.setState({
+            filtrarPeli: "",
+            datoFiltrado: this.state.cartel
+        })
+    }
+
+    handleLoadMore () {
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=b2d79b61dd4647f5264c62498ee335ca&page=${this.state.actualPop}`)
             .then((results) => results.json())
             .then((data) => {
-                const nuevasCartel = this.state.cartel.concat(data.results);
                 this.setState({
-                    cartel: nuevasCartel,
-                    datoFiltrado: nuevasCartel.filter(movie =>
-                        movie.title.toLowerCase().includes(this.state.filtrar.toLowerCase())
-                    ),
-                    pag: this.state.pag + 1,
+                    cartel: this.state.cartel.concat(data.results),
+                    datoFiltrado: this.state.datoFiltrado.concat(data.results),
+                    actualPop: this.state.actualPop + 1,   
                     isLoading: false
                 });
             })
             .catch((e) => console.log(e));
     };
 
-    handleFilterChange = (event) => {
-        const newFilterValue = event.target.value;
-        this.setState({
-            filtrar: newFilterValue,
-            datoFiltrado: this.state.cartel.filter(movie =>
-                movie.title.toLowerCase().includes(newFilterValue.toLowerCase())
-            )
-        });
-    }
-
     render() {
-        const { datoFiltrado } = this.state;
-
         return (
             <div className="ver-todas-page">
                 <h1>Ver todas las películas de cartelera</h1>
@@ -63,15 +71,16 @@ class Cartel extends Component {
                         type="text" 
                         placeholder="Buscar película..." 
                         value={this.state.filtrar}
-                        onChange={this.handleFilterChange} 
+                        onChange={(e) => this.handleFilterChange(e)} 
                     />
+                    <button onClick={() => this.handleResetFilter()}>Reset</button>
                 </form>
 
                 {!this.state.isLoading ? (
                     <>
-                        <GroupContent data={datoFiltrado} />
+                        <GroupContent data={this.state.datoFiltrado} />
 
-                        <button onClick={this.fetchCartel}>Cargar más</button>
+                        <button onClick={() => this.handleLoadMore()}>Cargar más</button>
                     </>
                 ) : (<p>Loadign</p>)}
             </div>

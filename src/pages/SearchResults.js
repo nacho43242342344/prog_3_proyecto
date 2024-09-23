@@ -28,7 +28,6 @@ class SearchResults extends Component{
         })
     }
     componentDidUpdate(resultadosViejos){
-        //para ver si al buscar por 2da vez estamos buscando otra cosa y mostrarla, o no.
         if (resultadosViejos.location.state.query !== this.props.location.state.query) {
             this.fetchBusquedaPeli(this.props.location.state.query)
         }
