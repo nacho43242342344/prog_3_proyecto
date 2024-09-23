@@ -36,8 +36,9 @@ class SearchForm extends Component {
                         placeholder="Buscar..."  
                         value= {this.state.query}
                     />
+                    <button onClick={() => this.handleFormSubmit()}>Buscar</button>
                 </form>
-                <button onClick={() => this.handleFormSubmit()}>Buscar</button> 
+                 
             </div>
         );
     }

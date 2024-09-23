@@ -8,7 +8,9 @@ class Header extends Component {
         return (
             <header>
                 <div className="logo">
-                    <h1>PopcornParadise</h1>
+                    <Link to="/">
+                        <h1>PopcornParadise</h1>
+                    </Link>
                     <img src="/logo.jpg" alt="Logo de la aplicación" />
                 </div>
                 <SearchForm history={this.props.history} /> 
@@ -16,7 +18,8 @@ class Header extends Component {
                     <ul>
                         <li><b><Link to="/">Home</Link></b></li>
                         <li><b><Link to="/favoritos">Favoritos</Link></b></li>
-                        <li><b><Link to="/ver-todas/populares">Ver Todas - Populares</Link></b></li>
+                        <li><b><Link to="/ver-todas/populares">Populares</Link></b></li>
+                        <li><b><Link to="/ver-todas/cartel">Cartel</Link></b></li>
                     </ul>
                 </nav>
             </header>
