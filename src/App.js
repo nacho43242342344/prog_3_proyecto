@@ -7,6 +7,7 @@ import Populares from './pages/VertodasPopulares';
 import Cartel from "./pages/VertodasCartel"
 import Notfound from './pages/Notfound';
 import SearchResults from './pages/SearchResults';
+import Favoritos from './pages/Favoritos';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/ver-todas/populares" component={Populares} />
           <Route path="/ver-todas/cartel" component={Cartel} />
           <Route path="/search" component={SearchResults} />
+          <Route path="/favoritos" component={Favoritos} />         
           <Route path="" component= {Notfound} />
       </Switch>
       <Footer />

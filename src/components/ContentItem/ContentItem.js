@@ -11,7 +11,7 @@ class ContentItem extends Component {
       id: this.props.data.id,
       description: this.props.data.overview,
       showDescription: false,
-      isFavorite: false,
+      esFavorito: false,
     };
   }
 
@@ -23,11 +23,50 @@ class ContentItem extends Component {
 
   variasFav = () => {
     this.setState(prevState => ({
-      isFavorite: !prevState.isFavorite
+      esFavorito: !prevState.esFavorito
     }), () => {
-      console.log(`${this.state.id} ${this.state.isFavorite ? 'agregado a favoritos' : 'eliminado de favoritos'}`);
+      console.log(`${this.state.id} ${this.state.esFavorito ? 'agregado a favoritos' : 'eliminado de favoritos'}`);
     });
   };
+
+  componentDidMount() {
+    const storage = localStorage.getItem("favoritos");
+    if (storage !== null) {
+      const parsedStorage = JSON.parse(storage);
+      const estaEnFavoritos = parsedStorage.includes(this.state.id);
+      if (estaEnFavoritos) {
+        this.setState({
+          esFavorito: true,
+        });
+      }
+    }
+  }
+  agregarAFavoritos(){
+    const storage= localStorage.getItem('favoritos')
+    if (storage !== null){
+      const parsedStorage = JSON.parse(storage)
+      parsedStorage.push(this.state.id)
+      const stringStorage = JSON.stringify(parsedStorage)
+      localStorage.setItem('favoritos',stringStorage)
+    }else{
+      const primerFavorito= [this.state.id]
+      const stringStorage=JSON.stringify(primerFavorito)
+      localStorage.setItem('favoritos',stringStorage)
+    }
+    this.setState({
+      esFavorito:true
+    })
+  }
+  quitarDeFavoritos(){
+    const storage= localStorage.getItem('favoritos')
+    const parsedStorage=JSON.parse(storage)
+    const restoFavoritos= parsedStorage.filter(id=>id!== this.state.id)
+    const stringStorage=JSON.stringify(restoFavoritos)
+    localStorage.setItem('favoritos',stringStorage)
+    this.setState({
+      esFavorito:false
+    })
+  }
 
   render() {
     return (
@@ -46,8 +85,8 @@ class ContentItem extends Component {
 
         <Link to={`/detalle/${this.state.id}`}>Ir a ver el detalle</Link>
 
-        <button onClick={this.variasFav}>
-          {this.state.isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+        <button onClick= {()=> !this.state.esFavorito ?  this.agregarAFavoritos() : this.quitarDeFavoritos()}>
+          {this.state.esFavorito ? 'Quitar de favoritos' : 'Agregar a favoritos'}
         </button>
       </div>
     );
