@@ -68,6 +68,7 @@ class ContentItem extends Component {
     })
   }
 
+
   render() {
     return (
       <div className='content-item'>
