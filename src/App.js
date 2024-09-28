@@ -8,7 +8,7 @@ import Cartel from "./pages/VertodasCartel"
 import Notfound from './pages/Notfound';
 import SearchResults from './pages/SearchResults';
 import Favoritos from './pages/Favoritos';
-import Detalle from './pages/Detalle';
+import DetallePage from './pages/DetallePage';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="/ver-todas/cartel" component={Cartel} />
           <Route path="/search" component={SearchResults} />
           <Route path="/favoritos" component={Favoritos} />  
-          <Route path="/detalle/:id" component={Detalle} />   
+          <Route path="/detalle/:id" component={DetallePage} />   
           <Route path="" component= {Notfound} />
       </Switch>
       <Footer />

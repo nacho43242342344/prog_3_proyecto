@@ -29,26 +29,13 @@ class Favoritos extends Component {
     }
   }
   render() {
-    const{movies}= this.state
     return (
         <div className="favoritos-page">
         <h1>Ver todas las películas en favoritos</h1>
-        {movies.length === 0 ? (
-          <p>No hay películas en favoritos.</p>
-        ) : ( 
-          <div className="movies-list">
-            {movies.map((movie) => (
-              <div key={movie.id} className="movie-item">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <h2>{movie.title}</h2>
-                <p>{movie.release_date}</p>
-              </div>
-            ))}
-          </div>
-        )}
+      
+        
+          <GroupContent data={this.state.movies} />
+       
       </div>
     );
     

@@ -1,5 +1,6 @@
 import { Component } from "react";
-import GroupContent from "../components/GroupContent/GroupContent";
+import '../components/Detalle/Detalle'
+import Detalle from "../components/Detalle/Detalle";
 
 class DetallePage extends Component {
     constructor(props) {
@@ -61,30 +62,12 @@ class DetallePage extends Component {
     };
   
     render() {
-      const { movie, esFavorito } = this.state;
-  
-      if (!movie) {
-        return <p>Cargando detalles...</p>;
-      }
-  
-      return (
-        <div className="detalle-page">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <h1>{movie.title}</h1>
-          <p><strong>Calificación:</strong> {movie.vote_average}</p>
-          <p><strong>Fecha de estreno:</strong> {movie.release_date}</p>
-          <p><strong>Duración:</strong> {movie.runtime} minutos</p>
-          <p><strong>Sinopsis:</strong> {movie.overview}</p>
-          <p><strong>Género:</strong> {movie.genres.map((genre) => genre.name).join(", ")}</p>
-  
-          <button onClick={esFavorito ? this.quitarDeFavoritos : this.agregarAFavoritos}>
-            {esFavorito ? "Quitar de favoritos" : "Agregar a favoritos"}
-          </button>
-        </div>
-      );
+      const { movie } = this.state;
+      return(
+      
+      <Detalle  movie={movie}/>
+      
+      )
     }
   }
   
