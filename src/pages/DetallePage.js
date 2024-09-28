@@ -8,12 +8,15 @@ class DetallePage extends Component {
       this.state = {
         movie: null,
         esFavorito: false,
+        isLoading: true
       };
     }
   
     componentDidMount() {
       const { id } = this.props.match.params;
-  
+      this.setState({
+        isLoading: true
+      })
       
       fetch(
         `https://api.themoviedb.org/3/movie/${id}?api_key=b2d79b61dd4647f5264c62498ee335ca`
@@ -23,6 +26,7 @@ class DetallePage extends Component {
           this.setState({
             movie: data,
             esFavorito: this.checkFavorito(id),
+            isLoading: false
           });
         })
         .catch((error) => console.error("Error al obtener los datos:", error));
@@ -64,9 +68,11 @@ class DetallePage extends Component {
     render() {
       const { movie } = this.state;
       return(
-      
-      <Detalle  movie={movie}/>
-      
+        <>
+        {!this.state.isLoading ? (
+        <Detalle  movie={movie}/>
+        ) : (<p>Loadign</p>)}
+      </>
       )
     }
   }

@@ -7,10 +7,14 @@ class Favoritos extends Component {
 
     this.state = {
       movies: [],
+      isLoading: true
     };
   }
 
   componentDidMount() {
+    this.setState({
+      isLoading: true
+    })
     const storage = localStorage.getItem("favoritos");
     if (storage !== null) {
       const parsedStorage = JSON.parse(storage);
@@ -23,18 +27,21 @@ class Favoritos extends Component {
       ).then((data) => {
         this.setState({
           movies: data,
+          isLoading: false
         });
-        console.log(data);
       });
     }
   }
   render() {
     return (
-        <div className="favoritos-page">
+      <div className="favoritos-page">
         <h1>Ver todas las películas en favoritos</h1>
       
-        
-          <GroupContent data={this.state.movies} />
+        {!this.state.isLoading ? (
+
+        <GroupContent data={this.state.movies} />
+
+        ) : (<p>Loadign</p>)}
        
       </div>
     );
