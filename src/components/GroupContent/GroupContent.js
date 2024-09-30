@@ -1,6 +1,5 @@
 import React from "react";
 import ContentItem from '../ContentItem/ContentItem';
-import './GroupContent.css';
 
 const GroupContent = ({ data }) => {
     return (

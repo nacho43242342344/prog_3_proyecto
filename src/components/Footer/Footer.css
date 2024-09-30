@@ -17,3 +17,25 @@ footer p {
     color: #bdc3c7;
     margin-bottom: 30px; 
 }
+
+@media (max-width: 768px) {
+    footer {
+        padding: 15px;
+    }
+
+    footer p {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 10px;
+    }
+
+    footer p {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+}
